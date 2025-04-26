@@ -37,6 +37,7 @@ export default function Page() {
             className='hidden md:block'
             alt='Screenshots of the dashoboard project'
             />
+            {/* Add Mobile Hero Images Here */}
           <Image
             src="/hero-mobile.png"
             width={560}

@@ -21,7 +21,7 @@ export default function EditInvoiceForm({
 }) {
   const initialState: State = { message: null, errors: {} };
   const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
-  const [formAction] = useActionState(updateInvoiceWithId, initialState);
+  const [state, formAction] = useActionState<State, FormData>(updateInvoiceWithId, initialState);
 
   return (
     <form action={formAction}>
@@ -124,6 +124,11 @@ export default function EditInvoiceForm({
         </Link>
         <Button type="submit">Edit Invoice</Button>
       </div>
+      {state.message && (
+        <div className="mt-4 text-sm text-red-500">
+          {state.message}
+        </div>
+      )}
     </form>
   );
 }

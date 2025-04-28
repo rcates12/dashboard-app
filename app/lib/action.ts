@@ -24,6 +24,7 @@ const FormSchema = z.object({
 });
    
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
+const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 
 export type State = {
   errors?: {
@@ -115,8 +116,12 @@ export async function authenticate(
   try {
     await signIn('credentials', formData);
   } catch (errors) {
+    interface ExtendedAuthError extends AuthError {
+      type: string;
+    }
     if (errors instanceof AuthError) {
-      switch (errors.type) {
+      const typedError = errors as ExtendedAuthError;
+      switch (typedError.type) {
         case 'CredentialsSignin':
           return 'Invalid credentials.';
         default:
